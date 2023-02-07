@@ -16,7 +16,7 @@
     - [Initial the lib](#Initial-the-Gson-extension)
     - [Customized the lib](#Customize-the-Gson-extension)
     - [Serialize synchronously](#Serialize-synchronously)
-    - [Serialize with Kotlin Coroutines](#Serialize with Kotlin Coroutines)
+    - [Serialize with Kotlin Coroutines](#Serialize-with-Kotlin-Coroutines)
 - [Samples](#samples)
 - [FAQ](#faq)
 
