@@ -272,7 +272,7 @@ private fun <T> Result<T>.outputDebugLogIfNecessary() {
  * The List generic type wrapper.
  * We use this [ParameterizedType] to support us deserializer the JSON string to List<T>
  */
-private class ListTypeWrapper<T>(private val wrapped: Class<T>) : ParameterizedType {
+internal class ListTypeWrapper<T>(private val wrapped: Class<T>) : ParameterizedType {
     override fun getActualTypeArguments(): Array<Type> {
         return arrayOf(wrapped)
     }

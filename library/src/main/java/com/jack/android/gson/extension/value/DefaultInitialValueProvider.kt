@@ -28,8 +28,22 @@ class DefaultInitialValueProvider : InitialValueProvider {
     }
 
     private fun <T> getInitialValueFromTypes(rawType: Class<T>): Any? {
+        if (null != rawType.componentType) {
+            return when (rawType.componentType) {
+                Int::class.javaObjectType, Int::class.javaPrimitiveType -> emptyArray<Int>()
+                Boolean::class.javaObjectType, Boolean::class.javaPrimitiveType -> emptyArray<Boolean>()
+                Char::class.javaObjectType, Char::class.javaPrimitiveType -> emptyArray<Char>()
+                Byte::class.javaObjectType, Byte::class.javaPrimitiveType -> emptyArray<Byte>()
+                Short::class.javaObjectType, Short::class.javaPrimitiveType -> emptyArray<Short>()
+                Long::class.javaObjectType, Long::class.javaPrimitiveType -> emptyArray<Long>()
+                Float::class.javaObjectType, Float::class.javaPrimitiveType -> emptyArray<Float>()
+                Double::class.javaObjectType, Double::class.javaPrimitiveType -> emptyArray<Double>()
+                else -> emptyArray<Any>()
+            }
+        }
         return when (rawType) {
-            Array::class.java -> emptyArray<Any>()
+            Array::class.java,
+            Array::class.javaObjectType -> emptyArray<Any>()
             List::class.java -> emptyList<Any>()
             Map::class.java -> emptyMap<String, Any?>()
             String::class.java -> ""

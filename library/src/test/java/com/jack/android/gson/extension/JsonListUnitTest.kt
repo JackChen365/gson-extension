@@ -77,12 +77,12 @@ class JsonListUnitTest {
     @Test
     fun testNullableIntListDeserialize() {
         val jsonString = """
-            [null,null,null,null]
+            [null,1,null,null]
         """.trimIndent()
         val intList = toList(jsonString, Int::class.java)
         Assert.assertNotNull(intList)
         Assert.assertEquals(4, intList!!.size)
-        Assert.assertEquals(listOf(null, null, null, null), intList)
+        Assert.assertEquals(listOf(null, 1, null, null), intList)
     }
 
     @Test

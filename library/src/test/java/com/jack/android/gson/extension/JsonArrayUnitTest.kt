@@ -17,7 +17,7 @@ class JsonArrayUnitTest {
         val result = fromJson(jsonString, ArrayClass::class.java)
         Assert.assertNotNull(result)
         Assert.assertNotNull(result!!.value)
-        Assert.assertEquals(arrayOf(1, 2, 3), result!!.value)
+        Assert.assertArrayEquals(arrayOf(1, 2, 3), result!!.value)
     }
 
     @Test
@@ -34,12 +34,12 @@ class JsonArrayUnitTest {
     @Test
     fun testNullableArrayDeserialize2() {
         val jsonString = """
-            {"value":[null,2,null]}
+            {"value":null}
         """.trimIndent()
         val result = fromJson(jsonString, ArrayClass::class.java)
         Assert.assertNotNull(result)
         Assert.assertNotNull(result!!.value)
-        Assert.assertArrayEquals(arrayOf(null,2,null), result!!.value)
+        Assert.assertArrayEquals(arrayOf(), result!!.value)
     }
 
     @Test
@@ -49,6 +49,6 @@ class JsonArrayUnitTest {
 
     @Test
     fun testNullableArraySerialize() {
-        Assert.assertEquals("{}", toJson(ArrayClass(value = null)))
+        Assert.assertEquals("{\"value\":[]}", toJson(ArrayClass(value = null)))
     }
 }
