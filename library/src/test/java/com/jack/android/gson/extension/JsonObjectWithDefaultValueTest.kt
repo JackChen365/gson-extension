@@ -31,7 +31,7 @@ class JsonObjectWithDefaultValueTest {
         Assert.assertEquals(2, dataClass?.id)
     }
 
-    private class DataClass2(val name: String, val id: Int)
+    private class DataClass2(val name: String="Jack", val id: Int=3)
 
     @Test
     fun testDeserializeWithoutDefaultValueAndResponse() {

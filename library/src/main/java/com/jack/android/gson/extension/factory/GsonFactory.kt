@@ -17,4 +17,19 @@ interface GsonFactory {
     fun createGson(): Gson
     fun createLogger(): DebugLogger
     fun createInitialValueProvider(): InitialValueProvider
+
+    /**
+     * If you want the parser to help you detect a class without an empty constructor, you can enable this
+     * for example:
+     * <p>
+     *     data class Item(val name: String)
+     * </p>
+     * It only has a constructor with string so that Gson will use unsafeAllocator
+     * However, for this class, it's the same. Because only the id has a default value, and the name doesn't have
+     * <p>
+     *     data class Item(val name: String,val id: Int = 0)
+     * </p>
+     * So enabling it will stop the deserialize when a class without an empty constructor
+     */
+    fun forceUseDefaultConstructor() : Boolean
 }

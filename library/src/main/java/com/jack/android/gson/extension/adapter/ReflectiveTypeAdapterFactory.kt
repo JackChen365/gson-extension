@@ -33,7 +33,8 @@ class ReflectiveTypeAdapterFactory @JvmOverloads constructor(
     private val fieldNamingPolicy: FieldNamingStrategy = FieldNamingPolicy.IDENTITY,
     private val excluder: Excluder = Excluder.DEFAULT,
     private val jsonAdapterFactory: JsonAdapterAnnotationTypeAdapterFactory =
-        JsonAdapterAnnotationTypeAdapterFactory(constructorConstructor)
+        JsonAdapterAnnotationTypeAdapterFactory(constructorConstructor),
+    private val forceUseDefaultParameter: Boolean = false
 ) : TypeAdapterFactory {
     companion object {
         fun excludeField(f: Field, serialize: Boolean, excluder: Excluder): Boolean {
@@ -77,7 +78,17 @@ class ReflectiveTypeAdapterFactory @JvmOverloads constructor(
             return null
         }
         val constructor = constructorConstructor.get(type)
+        if (forceUseDefaultParameter && constructor.isUnsafeAllocator<T>()) {
+            error("Using unsafe allocator will erase all the default value please make sure you have a default constructor.")
+        }
         return Adapter(constructor, getBoundFields(gson, type, raw))
+    }
+
+    private fun <T> ObjectConstructor<T>.isUnsafeAllocator(): Boolean {
+        val result = kotlin.runCatching {
+            null != this::class.java.getDeclaredField("unsafeAllocator")
+        }
+        return result.getOrDefault(false)
     }
 
     private fun createBoundField(

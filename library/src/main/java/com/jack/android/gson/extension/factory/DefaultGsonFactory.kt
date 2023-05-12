@@ -54,4 +54,8 @@ class DefaultGsonFactory : GsonFactory {
     override fun createInitialValueProvider(): InitialValueProvider {
         return DefaultInitialValueProvider()
     }
+
+    override fun forceUseDefaultConstructor(): Boolean {
+        return false
+    }
 }
