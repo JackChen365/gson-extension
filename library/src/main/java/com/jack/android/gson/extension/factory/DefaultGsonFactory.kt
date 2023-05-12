@@ -41,7 +41,7 @@ open class DefaultGsonFactory : GsonFactory {
                 ReflectiveTypeAdapterFactory(
                     initialValueProvider = initialValueProvider,
                     constructorConstructor = constructorConstructor,
-                    forceUseDefaultConstructor = forceUseEmptyConstructor()
+                    forceCheckEmptyConstructor = forceCheckEmptyConstructor()
                 )
             )
             .disableHtmlEscaping()
@@ -56,7 +56,7 @@ open class DefaultGsonFactory : GsonFactory {
         return DefaultInitialValueProvider()
     }
 
-    override fun forceUseEmptyConstructor(): Boolean {
+    override fun forceCheckEmptyConstructor(): Boolean {
         return false
     }
 }
