@@ -1,12 +1,16 @@
 package com.jack.android.gson.extension
 
+import com.jack.android.gson.extension.rule.GsonExtensionRule
 import org.junit.Assert
+import org.junit.Rule
 import org.junit.Test
 
 /**
  * unit-test to test Int value.
  */
 class JsonFloatUnitTest {
+    @get:Rule
+    val extensionRule = GsonExtensionRule()
     private class FloatClass(val number: Float?)
 
     @Test

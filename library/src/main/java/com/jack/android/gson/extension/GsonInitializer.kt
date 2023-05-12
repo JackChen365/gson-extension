@@ -9,7 +9,8 @@ import com.jack.android.gson.extension.logger.DebugLogger
  * Initial the gson extensions.
  * If you don't want initial manually. we will use [DefaultGsonFactory] which is a default [GsonFactory]
  */
-fun initialGsonExtension(factory: GsonFactory) {
+fun initialGsonExtension(factory: GsonFactory?) {
+    internalGson = null
     internalGsonFactory = factory
 }
 

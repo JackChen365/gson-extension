@@ -1,10 +1,14 @@
 package com.jack.android.gson.extension
 
 import com.google.gson.Gson
+import com.jack.android.gson.extension.rule.GsonExtensionRule
 import org.junit.Assert
+import org.junit.Rule
 import org.junit.Test
 
 class IssueTest {
+    @get:Rule
+    val extensionRule = GsonExtensionRule()
     data class Foo(val name: String = "")
 
     @Test

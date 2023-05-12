@@ -31,5 +31,5 @@ interface GsonFactory {
      * </p>
      * So enabling it will stop the deserialize when a class without an empty constructor
      */
-    fun forceUseDefaultConstructor() : Boolean
+    fun forceUseEmptyConstructor() : Boolean
 }

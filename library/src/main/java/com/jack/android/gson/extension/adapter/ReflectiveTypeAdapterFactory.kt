@@ -121,9 +121,11 @@ class ReflectiveTypeAdapterFactory @JvmOverloads constructor(
                 }
                 if (null == fieldValue) {
                     // if the field value is null, we initial it with the initialValueProvider
-                    val initialValue = initialValueProvider.getInitialValue(fieldType.rawType)
-                    if (null != initialValue) {
-                        fieldValue = initialValue
+                    with(initialValueProvider) {
+                        val initialValue = constructorConstructor.getInitialValue(fieldType)
+                        if (null != initialValue) {
+                            fieldValue = initialValue
+                        }
                     }
                 }
                 t?.write(writer, fieldValue)
@@ -142,9 +144,11 @@ class ReflectiveTypeAdapterFactory @JvmOverloads constructor(
                     // the json is null, but the object has its default value.
                     if (null == field[value]) {
                         // the class didn't has a default value. use the value from initialValueProvider
-                        val initialValue = initialValueProvider.getInitialValue(fieldType.rawType)
-                        if (null != initialValue) {
-                            field[value] = initialValue
+                        with(initialValueProvider) {
+                            val initialValue = constructorConstructor.getInitialValue(fieldType)
+                            if (null != initialValue) {
+                                field[value] = initialValue
+                            }
                         }
                     }
                 }

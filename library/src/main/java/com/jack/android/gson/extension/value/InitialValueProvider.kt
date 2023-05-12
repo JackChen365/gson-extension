@@ -1,7 +1,8 @@
 package com.jack.android.gson.extension.value
 
-interface InitialValueProvider {
-    fun <T> getInitialValue(rawType: Class<T>): T?
-}
+import com.google.gson.internal.ConstructorConstructor
+import com.google.gson.reflect.TypeToken
 
-inline fun<reified T> InitialValueProvider.getInitialValue() = getInitialValue(T::class.java)
+interface InitialValueProvider {
+    fun <T> ConstructorConstructor.getInitialValue(typeToken: TypeToken<T>): T?
+}
