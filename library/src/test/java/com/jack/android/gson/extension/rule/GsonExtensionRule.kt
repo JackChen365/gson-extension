@@ -21,7 +21,7 @@ class GsonExtensionRule : TestRule {
                 }
                 if (null != forceCheckEmptyConstructor) {
                     initialGsonExtension(object : DefaultGsonFactory() {
-                        override fun forceUseEmptyConstructor(): Boolean = true
+                        override fun forceCheckEmptyConstructor(): Boolean = true
                     })
                 } else {
                     initialGsonExtension(null)
