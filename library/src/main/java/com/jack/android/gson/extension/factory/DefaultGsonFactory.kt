@@ -28,7 +28,7 @@ import java.util.Collections
  *      }
  * </p>
  */
-class DefaultGsonFactory : GsonFactory {
+open class DefaultGsonFactory : GsonFactory {
     override fun createGson(): Gson {
         val constructorConstructor = ConstructorConstructor(
             Collections.emptyMap()
@@ -39,8 +39,9 @@ class DefaultGsonFactory : GsonFactory {
             .enableComplexMapKeySerialization()
             .registerTypeAdapterFactory(
                 ReflectiveTypeAdapterFactory(
-                    initialValueProvider,
-                    constructorConstructor
+                    initialValueProvider = initialValueProvider,
+                    constructorConstructor = constructorConstructor,
+                    forceUseDefaultConstructor = forceUseDefaultConstructor()
                 )
             )
             .disableHtmlEscaping()

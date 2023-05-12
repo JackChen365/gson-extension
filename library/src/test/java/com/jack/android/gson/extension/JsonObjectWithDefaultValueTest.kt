@@ -1,5 +1,6 @@
 package com.jack.android.gson.extension
 
+import com.jack.android.gson.extension.factory.DefaultGsonFactory
 import org.junit.Assert
 import org.junit.Test
 
@@ -31,7 +32,7 @@ class JsonObjectWithDefaultValueTest {
         Assert.assertEquals(2, dataClass?.id)
     }
 
-    private class DataClass2(val name: String="Jack", val id: Int=3)
+    private class DataClass2(val name: String, val id: Int)
 
     @Test
     fun testDeserializeWithoutDefaultValueAndResponse() {
@@ -39,6 +40,33 @@ class JsonObjectWithDefaultValueTest {
             {"name":null,id:null}
         """.trimIndent()
         val dataClass = fromJson(jsonString, DataClass2::class.java)
+        Assert.assertNotNull(dataClass)
+        Assert.assertEquals("", dataClass?.name)
+        Assert.assertEquals(0, dataClass?.id)
+    }
+
+    private class DataClass3(val name: String, val id: Int = 2)
+
+    @Test
+    fun testDeserializeCheckDefaultConstructor() {
+        val jsonString = """
+            {"name":null,id:null}
+        """.trimIndent()
+        initialGsonExtension(object : DefaultGsonFactory() {
+            override fun forceUseDefaultConstructor(): Boolean {
+                return true
+            }
+        })
+        val dataClass = fromJson(jsonString, DataClass3::class.java)
+        Assert.assertEquals(null, dataClass)
+    }
+
+    @Test
+    fun testDeserializeDoNotCheckDefaultConstructor() {
+        val jsonString = """
+            {"name":null,id:null}
+        """.trimIndent()
+        val dataClass = fromJson(jsonString, DataClass3::class.java)
         Assert.assertNotNull(dataClass)
         Assert.assertEquals("", dataClass?.name)
         Assert.assertEquals(0, dataClass?.id)

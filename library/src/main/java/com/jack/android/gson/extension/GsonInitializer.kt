@@ -29,7 +29,7 @@ private var internalDebugLogger: DebugLogger? = null
 internal fun internalGson(): Gson {
     return synchronized(MUTEX) {
         internalGson ?: synchronized(MUTEX) {
-            defaultGsonFactory.createGson().also {
+            (internalGsonFactory ?: defaultGsonFactory).createGson().also {
                 internalGson = it
             }
         }

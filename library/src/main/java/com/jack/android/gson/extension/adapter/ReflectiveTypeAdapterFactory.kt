@@ -34,7 +34,7 @@ class ReflectiveTypeAdapterFactory @JvmOverloads constructor(
     private val excluder: Excluder = Excluder.DEFAULT,
     private val jsonAdapterFactory: JsonAdapterAnnotationTypeAdapterFactory =
         JsonAdapterAnnotationTypeAdapterFactory(constructorConstructor),
-    private val forceUseDefaultParameter: Boolean = false
+    private val forceUseDefaultConstructor: Boolean = false
 ) : TypeAdapterFactory {
     companion object {
         fun excludeField(f: Field, serialize: Boolean, excluder: Excluder): Boolean {
@@ -78,7 +78,7 @@ class ReflectiveTypeAdapterFactory @JvmOverloads constructor(
             return null
         }
         val constructor = constructorConstructor.get(type)
-        if (forceUseDefaultParameter && constructor.isUnsafeAllocator<T>()) {
+        if (forceUseDefaultConstructor && constructor.isUnsafeAllocator<T>()) {
             error("Using unsafe allocator will erase all the default value please make sure you have a default constructor.")
         }
         return Adapter(constructor, getBoundFields(gson, type, raw))
